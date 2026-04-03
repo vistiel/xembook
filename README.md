@@ -23,3 +23,6 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+
+### 拡張予定
+応答性能の速いノードに接続できるように連携する
