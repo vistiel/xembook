@@ -71,7 +71,9 @@ async function fetchTopNodes(){
 	try{
 		const res = await $.ajax({url: "https://devil.vistiel-arch.jp:3001/api/top5", type: 'GET', timeout: 5000});
 		if(res.nodes && res.nodes.length > 0){
-			return res.nodes.map(n => n.baseUrl);
+			const list = res.nodes.map(n => n.baseUrl);
+			list.push("https://angel.vistiel-arch.jp:3001");
+			return list;
 		}
 	}catch(e){
 		console.warn("top5 fetch failed, falling back to static list", e);
