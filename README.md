@@ -24,5 +24,5 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-### 拡張予定
+### 拡張機能
 応答性能の速いノードに接続できるように連携する
