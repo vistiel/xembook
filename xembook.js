@@ -67,6 +67,18 @@ const op = require("/node_modules/rxjs/operators");
 const rxjs = require("/node_modules/rxjs");
 const address = nem.Address.createFromRawAddress(rawAddress);
 
+async function fetchTopNodes(){
+	try{
+		const res = await $.ajax({url: "https://devil.vistiel-arch.jp:3001/api/top5", type: 'GET', timeout: 5000});
+		if(res.nodes && res.nodes.length > 0){
+			return res.nodes.map(n => n.baseUrl);
+		}
+	}catch(e){
+		console.warn("top5 fetch failed, falling back to static list", e);
+	}
+	return null;
+}
+
 function connectNode(nodes,d){
 
 	const node = nodes[Math.floor(Math.random() * nodes.length)] ;
@@ -148,7 +160,11 @@ const nemScriptionExpiredHeight = localStorage.getItem('NEMscriptionExpiredHeigh
 
 (async() =>{
 
-	if(nemScriptionExpiredHeight !== null){
+	const topNodes = await fetchTopNodes();
+	if(topNodes){
+		nodelist = topNodes;
+		console.log("connect top5 nodes from nodemonitor");
+	}else if(nemScriptionExpiredHeight !== null){
 		nodelist = JP_NODES;
 		console.log("connect japan node");
 	}
